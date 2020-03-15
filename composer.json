@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PleskX\\": "src/"
+            "15megatonn\\PleskX\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PleskXTest\\": "tests/"
+            "15megatonn\\PleskXTest\\": "tests/"
         }
     },
     "extra": {
