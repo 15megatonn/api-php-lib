@@ -70,7 +70,7 @@ class Webspace extends \PleskX\Api\Operator
     public function create(array $properties, array $hostingProperties = null, $planName = null)
     {
         $packet = $this->_client->getPacket();
-        $info = $packet->addChild($this->_wrapperTag)->addChild('add');
+        $info   = $packet->addChild($this->_wrapperTag)->addChild('add');
 
         $infoGeneral = $info->addChild('gen_setup');
         foreach ($properties as $name => $value) {
@@ -142,5 +142,33 @@ class Webspace extends \PleskX\Api\Operator
         $items = $this->_getItems(Struct\DiskUsage::class, 'disk_usage', $field, $value);
 
         return reset($items);
+    }
+
+    /**
+     * @param string $name
+     * @return Struct\GeneralInfo
+     */
+    public function getByName(string $name)
+    {
+        return $this->get("name", $name);
+    }
+
+    /**
+     * @param string $field
+     * @param int|string $value
+     *
+     * @return Struct\HostingSettings
+     */
+    public function getHostingSettings($field, $value)
+    {
+        $packet = $this->_client->getPacket();
+        $getTag = $packet->addChild($this->_wrapperTag)->addChild('get');
+
+        $getTag->addChild('filter')->addChild($field, $value);
+        $getTag->addChild('dataset')->addChild('hosting');
+
+        $response = $this->_client->request($packet, \PleskX\Api\Client::RESPONSE_FULL);
+
+        return new Struct\HostingSettings($response);
     }
 }
