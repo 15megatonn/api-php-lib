@@ -2,6 +2,9 @@
 # vendor
 /vendor/
 
+#IDE
+.idea/
+
 # tests
 /phpunit.xml
 /.phpunit.result.cache
